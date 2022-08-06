@@ -105,7 +105,7 @@
                         <password>my-password</password>
                     </jdbc>
                     <generator>
-                        <name>org.jooq.codegen.KotlinGenerator</name>
+                        <name>org.jooq.codegen.JavaGenerator</name>
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <inputSchema>public</inputSchema>
@@ -128,7 +128,7 @@
                         </generate>
                         <target>
                             <packageName>top.oatnil.dbmlfromjooq.demo.generated</packageName>
-                            <directory>src/main/kotlin/</directory>
+                            <directory>src/main/java/</directory>
                         </target>
                     </generator>
                 </configuration>
