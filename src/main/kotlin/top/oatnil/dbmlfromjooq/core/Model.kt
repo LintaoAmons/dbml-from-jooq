@@ -4,10 +4,15 @@ import org.jooq.Record
 import java.beans.PropertyDescriptor
 import java.lang.reflect.Method
 
+data class DBML(
+    val tableName: String,
+    val columns: List<Column>?
+)
+
 data class Column(
     val name: String,
     val dataType: String,
-    val dataValue: Any,
+    val dataValue: Any?,
 )
 
 data class ColumnDefinition(

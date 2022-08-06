@@ -1,16 +1,23 @@
 package top.oatnil.dbmlfromjooq.demo
 
+import org.jooq.DSLContext
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.junit.jupiter.MockitoExtension
 
-@SpringBootTest
+@ExtendWith(MockitoExtension::class)
 internal class UsecaseUnitTest {
-    @Autowired
+    @Mock
+    lateinit var dslContext: DSLContext
+
+    @InjectMocks
     lateinit var usecase: Usecase
 
     @Test
     fun `testDemo`() {
         usecase.demo()
+
     }
 }

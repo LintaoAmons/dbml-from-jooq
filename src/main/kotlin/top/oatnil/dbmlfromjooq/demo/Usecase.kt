@@ -10,19 +10,37 @@ import org.reflections.util.ConfigurationBuilder
 import org.reflections.util.FilterBuilder
 import org.springframework.stereotype.Component
 import top.oatnil.dbmlfromjooq.core.columns
+import top.oatnil.dbmlfromjooq.core.generateDBML
 import top.oatnil.dbmlfromjooq.core.selectAny
 import top.oatnil.dbmlfromjooq.core.tableName
-import top.oatnil.dbmlfromjooq.demo.generated.tables.Actor.Companion.ACTOR
+import top.oatnil.dbmlfromjooq.demo.generated.Tables
 
 @Component
 class Usecase(val dslContext: DSLContext) {
-    fun `specific Table to columns`() {
-        val actorRecord = ACTOR.selectAny(dslContext)
-        println(actorRecord?.columns())
+    fun fromTable(table: TableImpl<*>) {
+        val actorRecord = table.selectAny(dslContext)
+        println("=====================")
         println(actorRecord?.tableName())
+        println(actorRecord?.columns())
     }
-    fun demo() {
 
+    fun demo() {
+        listOf<TableImpl<*>>(
+            Tables.ACTOR,
+            Tables.ACTOR_INFO,
+            Tables.ADDRESS,
+            Tables.CATEGORY,
+            Tables.CITY,
+            Tables.COUNTRY,
+            Tables.CUSTOMER,
+            Tables.CUSTOMER_LIST,
+            Tables.FILM,
+            Tables.FILM_ACTOR,
+            Tables.FILM_CATEGORY,
+            Tables.FILM_IN_STOCK,
+        ).forEach {
+            println(it.generateDBML(dslContext))
+        }
     }
 
     fun `use refection to find all tables`() {

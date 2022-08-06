@@ -6,6 +6,14 @@ import org.jooq.Table
 import top.oatnil.dbmlfromjooq.core.ColumnDefinition.Companion.toColumnDefinition
 import java.beans.Introspector
 
+fun Table<*>.generateDBML(dslContext: DSLContext): DBML {
+    val recordInstance = this.selectAny(dslContext)
+    return DBML(
+        recordInstance?.tableName() ?: "Missing Table Name: [${this.type}]",
+        recordInstance?.columns()
+    )
+}
+
 fun <R : Record> Table<R>.selectAny(dslContext: DSLContext): R? {
     return dslContext.selectFrom(this)
         .limit(1)
