@@ -6,8 +6,11 @@ import java.lang.reflect.Method
 
 data class DBML(
     val tableName: String,
-    val columns: List<Column>?
-)
+    val columns: List<Column>?,
+    var render: Render?,
+) {
+
+}
 
 data class Column(
     val name: String,
