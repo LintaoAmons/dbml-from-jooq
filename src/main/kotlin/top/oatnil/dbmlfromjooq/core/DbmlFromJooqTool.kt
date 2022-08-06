@@ -2,7 +2,6 @@ package top.oatnil.dbmlfromjooq.core
 
 import org.jooq.DSLContext
 import org.jooq.Record
-import org.jooq.Table
 import org.jooq.impl.TableImpl
 import org.springframework.stereotype.Component
 
@@ -13,17 +12,10 @@ class DbmlFromJooqTool(val dslContext: DSLContext) {
     }
 
     companion object {
-        fun generate(records: List<Record>) {
-            TODO()
+        fun generate(records: List<Record?>): String {
+            return records
+                .mapNotNull { if (it == null) println("there's record == null"); it }
+                .joinToString("\n") { it.generateDBML().render() }
         }
-    }
-
-
-    private fun <R : Record?> Table<R>.selectAnyOne(): R {
-
-        return dslContext.selectFrom(this)
-            .limit(1)
-            .fetchOptional()
-            .orElse(null)
     }
 }

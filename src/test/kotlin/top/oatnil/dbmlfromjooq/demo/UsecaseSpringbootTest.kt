@@ -11,6 +11,11 @@ internal class UsecaseSpringbootTest {
 
     @Test
     fun `testDemo`() {
-        usecase.demo()
+        usecase.demoFromTables()
+    }
+
+    @Test
+    fun `testFromRecords`() {
+        usecase.demoFromRecords()
     }
 }

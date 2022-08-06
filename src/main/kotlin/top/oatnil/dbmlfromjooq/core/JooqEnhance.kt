@@ -20,6 +20,10 @@ fun <R : Record> Table<R>.selectAny(dslContext: DSLContext): R? {
         .fetchAny()
 }
 
+fun Record.generateDBML(): DBML {
+    return DBML(this.tableName(), this.columns())
+}
+
 fun Record.tableName(): String {
     return this::class.java.simpleName.replace("Record", "")
 }

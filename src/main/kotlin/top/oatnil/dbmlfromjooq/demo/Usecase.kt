@@ -1,27 +1,15 @@
 package top.oatnil.dbmlfromjooq.demo
 
 import org.jooq.DSLContext
-import org.jooq.Record
 import org.jooq.impl.TableImpl
-import org.reflections.Reflections
-import org.reflections.scanners.SubTypesScanner
-import org.reflections.util.ClasspathHelper
-import org.reflections.util.ConfigurationBuilder
-import org.reflections.util.FilterBuilder
 import org.springframework.stereotype.Component
-import top.oatnil.dbmlfromjooq.core.*
+import top.oatnil.dbmlfromjooq.core.DbmlFromJooqTool
 import top.oatnil.dbmlfromjooq.demo.generated.Tables
 
 @Component
 class Usecase(val dslContext: DSLContext) {
-    fun fromTable(table: TableImpl<*>) {
-        val actorRecord = table.selectAny(dslContext)
-        println("=====================")
-        println(actorRecord?.tableName())
-        println(actorRecord?.columns())
-    }
 
-    fun demo() {
+    fun demoFromTables() {
         val tableImpls = listOf<TableImpl<*>>(
             Tables.ACTOR,
             Tables.ACTOR_INFO,
@@ -39,32 +27,29 @@ class Usecase(val dslContext: DSLContext) {
         println(DbmlFromJooqTool(dslContext).generate(tableImpls))
     }
 
-    fun `use refection to find all tables`() {
-        val packageName = "top.oatnil.dbmlfromjooq.demo.generated.tables"
-        val typeList = findTables(packageName)
+    fun demoFromRecords() {
+        val actorId = 1
+        val actorRecord = dslContext.selectFrom(Tables.ACTOR)
+            .where(Tables.ACTOR.ACTOR_ID.eq(actorId))
+            .limit(1)
+            .fetchOne()
 
-        typeList?.forEach { c ->
-            val newInstance = c.getConstructor().newInstance()
-            val record: Record? = newInstance.selectAny(dslContext)
-            val columns = record?.columns()
-            val tableName = record?.tableName()
-            println("columns: ${columns},\n tableName: $tableName")
-        }
+        val actorInfoRecord = dslContext.selectFrom(Tables.ACTOR_INFO)
+            .where(Tables.ACTOR_INFO.ACTOR_ID.eq(actorId))
+            .limit(1)
+            .fetchOne()
+
+        val filmActorRecord = dslContext.selectFrom(Tables.FILM_ACTOR)
+            .where(Tables.FILM_ACTOR.ACTOR_ID.eq(actorId.toShort()))
+            .limit(1)
+            .fetchOne()
+
+        val filmRecord = dslContext.selectFrom(Tables.FILM)
+            .where(Tables.FILM.FILM_ID.eq(filmActorRecord!!.filmId.toInt()))
+            .limit(1)
+            .fetchOne()
+
+        println(DbmlFromJooqTool.generate(listOf(actorRecord, actorInfoRecord, filmActorRecord, filmRecord)))
     }
-
-    private fun findTables(packageName: String): Set<Class<out TableImpl<*>>>? {
-        // will get more tables than it should, jooq generate more tables class than table
-        val reflections =
-            Reflections(
-                ConfigurationBuilder()
-                    .filterInputsBy(FilterBuilder().includePackage(packageName))
-                    .setUrls(ClasspathHelper.forPackage(packageName))
-                    .setScanners(SubTypesScanner(false))
-            )
-        return reflections.getSubTypesOf(TableImpl::class.java)
-    }
-
 }
-
-// table -> dbml
 

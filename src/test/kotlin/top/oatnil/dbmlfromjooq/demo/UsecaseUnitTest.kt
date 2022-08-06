@@ -17,7 +17,7 @@ internal class UsecaseUnitTest {
 
     @Test
     fun `testDemo`() {
-        usecase.demo()
+        usecase.demoFromTables()
 
     }
 }

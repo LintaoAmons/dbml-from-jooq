@@ -17,7 +17,6 @@ class JDBCTest {
             val sql = "SELECT * FROM actor;"
             val statement = connection.createStatement()
             val res = statement.executeQuery(sql)
-            println(res)
         } catch (e: SQLException) {
             System.err.format("SQL State: %s\n%s", e.sqlState, e.message)
         }
