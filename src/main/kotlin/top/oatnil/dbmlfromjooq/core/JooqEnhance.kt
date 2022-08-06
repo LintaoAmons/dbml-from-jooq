@@ -2,9 +2,16 @@ package top.oatnil.dbmlfromjooq.core
 
 import org.jooq.DSLContext
 import org.jooq.Record
+import org.jooq.Table
 import top.oatnil.dbmlfromjooq.core.ColumnDefinition.Companion.toColumnDefinition
 import java.beans.Introspector
 
+
+fun <R : Record> Table<R>.selectAny(dslContext: DSLContext): R? {
+    return dslContext.selectFrom(this)
+        .limit(1)
+        .fetchAny()
+}
 
 fun Record.tableName(): String {
     return this::class.java.simpleName.replace("Record", "")
@@ -13,12 +20,6 @@ fun Record.tableName(): String {
 fun Record.columns(): List<Column> {
     return this::class.java.toColumns(this)
 }
-
-//fun Class<out Record>.selectAnyOne(dslContext: DSLContext): Record? {
-//    return dslContext.selectFrom(this.tableName())
-//        .limit(1)
-//        .fetchAny()
-//}
 
 fun Class<out Record>.toColumnDefinitions(): List<ColumnDefinition> {
     return Introspector.getBeanInfo(this)
