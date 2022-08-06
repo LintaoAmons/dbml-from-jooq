@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:14.4-bullseye
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: my-password
+      PGDATA: /data/postgres
+    ports:
+      - '5433:5432'
