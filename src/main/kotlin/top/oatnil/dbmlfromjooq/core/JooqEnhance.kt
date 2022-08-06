@@ -10,7 +10,7 @@ fun Table<*>.generateDBML(dslContext: DSLContext): DBML {
     val recordInstance = this.selectAny(dslContext)
     return DBML(
         recordInstance?.tableName() ?: "Missing Table Name: [${this.type}]",
-        recordInstance?.columns()
+        recordInstance?.columns(),
     )
 }
 

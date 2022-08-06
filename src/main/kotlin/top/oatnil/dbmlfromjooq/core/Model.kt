@@ -7,9 +7,12 @@ import java.lang.reflect.Method
 data class DBML(
     val tableName: String,
     val columns: List<Column>?,
-    var render: Render?,
+    var render: Render? = BasicRender(),
 ) {
-
+    fun render(): String {
+        return render?.render(this)
+            ?: throw RuntimeException("No render has been selected")
+    }
 }
 
 data class Column(

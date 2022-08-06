@@ -9,10 +9,7 @@ import org.reflections.util.ClasspathHelper
 import org.reflections.util.ConfigurationBuilder
 import org.reflections.util.FilterBuilder
 import org.springframework.stereotype.Component
-import top.oatnil.dbmlfromjooq.core.columns
-import top.oatnil.dbmlfromjooq.core.generateDBML
-import top.oatnil.dbmlfromjooq.core.selectAny
-import top.oatnil.dbmlfromjooq.core.tableName
+import top.oatnil.dbmlfromjooq.core.*
 import top.oatnil.dbmlfromjooq.demo.generated.Tables
 
 @Component
@@ -25,7 +22,7 @@ class Usecase(val dslContext: DSLContext) {
     }
 
     fun demo() {
-        listOf<TableImpl<*>>(
+        val tableImpls = listOf<TableImpl<*>>(
             Tables.ACTOR,
             Tables.ACTOR_INFO,
             Tables.ADDRESS,
@@ -38,9 +35,8 @@ class Usecase(val dslContext: DSLContext) {
             Tables.FILM_ACTOR,
             Tables.FILM_CATEGORY,
             Tables.FILM_IN_STOCK,
-        ).forEach {
-            println(it.generateDBML(dslContext))
-        }
+        )
+        println(DbmlFromJooqTool(dslContext).generate(tableImpls))
     }
 
     fun `use refection to find all tables`() {
