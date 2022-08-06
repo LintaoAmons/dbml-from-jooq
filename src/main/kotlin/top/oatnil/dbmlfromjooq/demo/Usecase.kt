@@ -21,8 +21,11 @@ class Usecase(val dslContext: DSLContext) {
         println(actorRecord?.columns())
         println(actorRecord?.tableName())
     }
-
     fun demo() {
+
+    }
+
+    fun `use refection to find all tables`() {
         val packageName = "top.oatnil.dbmlfromjooq.demo.generated.tables"
         val typeList = findTables(packageName)
 
