@@ -2,7 +2,9 @@
 Generate DBML(database markdown language with easy) by leverage JOOQ
 
 对数据库不熟悉？
+
 想要快速画出 E-R 图？
+
 图上最好还要有 Sample data 才能想起来这个字段是什么？
 
 你可以试试用这个工具来快速生成 DBML.

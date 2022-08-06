@@ -45,7 +45,7 @@ class Usecase(val dslContext: DSLContext) {
             .fetchOne()
 
         val filmRecord = dslContext.selectFrom(Tables.FILM)
-            .where(Tables.FILM.FILM_ID.eq(filmActorRecord!!.filmId.toInt()))
+            .where(Tables.FILM.FILM_ID.eq(filmActorRecord!!.filmId!!.toInt()))
             .limit(1)
             .fetchOne()
 
