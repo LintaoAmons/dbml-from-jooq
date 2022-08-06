@@ -1,5 +1,5 @@
 # dbml-from-jooq
-Generate DBML(database markdown language with easy) by leverage JOOQ
+Generate [DBML](https://github.com/holistics/dbml) by leverage [JOOQ](https://www.jooq.org/doc/latest/manual/)
 
 对数据库不熟悉？
 
@@ -11,6 +11,14 @@ Generate DBML(database markdown language with easy) by leverage JOOQ
 
 # Pre-requirement
 一点点 JOOQ 的知识，知道怎么配置 `jooq-codegen-maven`,并生成代码
+
+# Usage
+
+1. configure JDBC connection in `Jooq-codegen-maven` in `pom.xml`
+2. `./mvnw jooq-codegen:generate` to generate `jooq` codes
+3. Put tables or records in `Usecase` and run test to generate DBML
+
+> 当然，也可以打包这个成 jar， 现有代码库直接依赖这个工具包，用 `DbmlFromJooqTool` 类去生成就行
 
 # RepoStructure
 
