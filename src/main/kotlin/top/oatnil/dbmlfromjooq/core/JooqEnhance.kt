@@ -6,7 +6,6 @@ import org.jooq.Table
 import top.oatnil.dbmlfromjooq.core.ColumnDefinition.Companion.toColumnDefinition
 import java.beans.Introspector
 
-
 fun <R : Record> Table<R>.selectAny(dslContext: DSLContext): R? {
     return dslContext.selectFrom(this)
         .limit(1)
