@@ -1,6 +1,8 @@
 package top.oatnil.dbmlfromjooq.core
 
 import org.jooq.Record
+import top.oatnil.dbmlfromjooq.core.render.BasicRender
+import top.oatnil.dbmlfromjooq.core.render.Render
 import java.beans.PropertyDescriptor
 import java.lang.reflect.Method
 

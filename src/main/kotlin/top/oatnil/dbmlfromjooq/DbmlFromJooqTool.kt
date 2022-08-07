@@ -1,12 +1,11 @@
-package top.oatnil.dbmlfromjooq.core
+package top.oatnil.dbmlfromjooq
 
 import org.jooq.DSLContext
 import org.jooq.Record
 import org.jooq.impl.TableImpl
-import org.springframework.stereotype.Component
+import top.oatnil.dbmlfromjooq.core.generateDBML
 
-@Component
-class DbmlFromJooqTool(val dslContext: DSLContext) {
+class DbmlFromJooqTool(private val dslContext: DSLContext) {
     fun generate(tables: List<TableImpl<*>>): String {
         return tables.joinToString("\n") { it.generateDBML(dslContext).render() }
     }

@@ -1,4 +1,7 @@
-package top.oatnil.dbmlfromjooq.core
+package top.oatnil.dbmlfromjooq.core.render
+
+import top.oatnil.dbmlfromjooq.core.Column
+import top.oatnil.dbmlfromjooq.core.DBML
 
 
 class BasicRender : Render {
