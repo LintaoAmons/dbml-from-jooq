@@ -1,5 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5433/dvdrental
-    username: postgres
-    password: my-password
